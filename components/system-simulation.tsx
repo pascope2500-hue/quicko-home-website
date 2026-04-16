@@ -124,6 +124,82 @@ export function SystemSimulation() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
       </div>
 
+      {/* Animated Background Effects Layer */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Grid Overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(0deg, transparent 24%, rgba(59, 130, 246, 0.05) 25%, rgba(59, 130, 246, 0.05) 26%, transparent 27%, transparent 74%, rgba(59, 130, 246, 0.05) 75%, rgba(59, 130, 246, 0.05) 76%, transparent 77%, transparent),
+              linear-gradient(90deg, transparent 24%, rgba(59, 130, 246, 0.05) 25%, rgba(59, 130, 246, 0.05) 26%, transparent 27%, transparent 74%, rgba(59, 130, 246, 0.05) 75%, rgba(59, 130, 246, 0.05) 76%, transparent 77%, transparent)
+            `,
+            backgroundSize: '60px 60px',
+            animation: 'gridScan 12s linear infinite'
+          }}
+        />
+
+        {/* Floating Particles */}
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div
+            key={`particle-${i}`}
+            className="absolute rounded-full"
+            style={{
+              width: `${Math.random() * 3 + 1}px`,
+              height: `${Math.random() * 3 + 1}px`,
+              backgroundColor: 'rgba(59, 130, 246, 0.4)',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              opacity: Math.random() * 0.15 + 0.05,
+              animation: `floatParticle ${Math.random() * 15 + 10}s infinite ease-in-out`,
+              animationDelay: `${Math.random() * 5}s`
+            }}
+          />
+        ))}
+
+        {/* Gradient Orb 1 - Blue */}
+        <div
+          className="absolute rounded-full blur-3xl"
+          style={{
+            width: '300px',
+            height: '300px',
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 70%, transparent 100%)',
+            left: '-10%',
+            top: '10%',
+            animation: 'floatOrb 15s ease-in-out infinite'
+          }}
+        />
+
+        {/* Gradient Orb 2 - Cyan */}
+        <div
+          className="absolute rounded-full blur-3xl"
+          style={{
+            width: '400px',
+            height: '400px',
+            background: 'radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, rgba(34, 211, 238, 0.02) 70%, transparent 100%)',
+            right: '-15%',
+            bottom: '-5%',
+            animation: 'floatOrb 20s ease-in-out infinite',
+            animationDelay: '2s'
+          }}
+        />
+
+        {/* Gradient Orb 3 - Purple */}
+        <div
+          className="absolute rounded-full blur-3xl"
+          style={{
+            width: '350px',
+            height: '350px',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 70%, transparent 100%)',
+            left: '50%',
+            top: '-10%',
+            transform: 'translateX(-50%)',
+            animation: 'floatOrb 18s ease-in-out infinite',
+            animationDelay: '4s'
+          }}
+        />
+      </div>
+
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header with LIVE DEMO MODE Badge */}
         <div className="flex justify-center mb-16">
@@ -149,6 +225,21 @@ export function SystemSimulation() {
           @keyframes fadeTransition {
             from { opacity: 0.6; }
             to { opacity: 1; }
+          }
+          @keyframes floatParticle {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(var(--tx-1), var(--ty-1)); }
+            50% { transform: translate(var(--tx-2), var(--ty-2)); }
+            75% { transform: translate(var(--tx-3), var(--ty-3)); }
+          }
+          @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -40px); }
+            66% { transform: translate(-20px, 25px); }
+          }
+          @keyframes gridScan {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
           }
         `}</style>
 
