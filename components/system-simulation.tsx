@@ -141,11 +141,14 @@ export function SystemSimulation() {
 
         <Card className="p-8 md:p-12 backdrop-blur-sm border-primary/20 bg-white/50 shadow-xl">
           <div className="flex items-start gap-4 mb-6">
-            {steps[activeStep].icon && (
-              <div className="p-3 bg-primary/10 text-primary rounded-lg flex-shrink-0">
-                {<steps[activeStep].icon size={28} />}
-              </div>
-            )}
+            {steps[activeStep].icon && (() => {
+              const IconComponent = steps[activeStep].icon
+              return (
+                <div className="p-3 bg-primary/10 text-primary rounded-lg flex-shrink-0">
+                  <IconComponent size={28} />
+                </div>
+              )
+            })()}
             <div>
               <h3 className="text-2xl font-bold text-foreground">{steps[activeStep].title}</h3>
               <p className="text-muted-foreground mt-1">{steps[activeStep].description}</p>
