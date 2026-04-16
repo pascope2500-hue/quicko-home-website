@@ -3,6 +3,7 @@ import { Footer } from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { SystemSimulation } from '@/components/system-simulation'
 import Link from 'next/link'
 import { BarChart3, LineChart, Smartphone, CreditCard, Lock, Users, Star, ArrowRight, PlayCircle } from 'lucide-react'
 
@@ -13,9 +14,19 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-1000" />
+        {/* Enhanced Background with layered gradient */}
+        <div className="absolute inset-0">
+          {/* Base gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+          
+          {/* Multi-layer gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent opacity-60" />
+          
+          {/* Floating animated shapes */}
+          <div className="absolute top-20 right-10 w-72 h-72 bg-primary/15 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-10 w-96 h-96 bg-secondary/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        </div>
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-6">
@@ -45,26 +56,31 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* Floating Cards */}
+          {/* Enhanced Floating Cards with glassmorphism */}
           <div className="relative h-80 md:h-96">
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
               <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+                {/* Floating card 1 - Order Confirmed */}
                 <div className="animate-bounce" style={{animationDelay: '0s'}}>
-                  <Card className="p-4 backdrop-blur-sm border-primary/20 bg-white/80 shadow-lg">
-                    <BarChart3 className="w-6 h-6 text-primary mb-2 mx-auto" />
-                    <p className="text-xs font-semibold">Reports</p>
+                  <Card className="p-4 backdrop-blur-xl border-primary/30 bg-white/80 shadow-xl hover:shadow-2xl transition-shadow">
+                    <div className="text-3xl mb-2">✅</div>
+                    <p className="text-xs font-semibold text-primary">Order Confirmed</p>
                   </Card>
                 </div>
+                
+                {/* Floating card 2 - Payment Success */}
                 <div className="animate-bounce" style={{animationDelay: '0.2s'}}>
-                  <Card className="p-4 backdrop-blur-sm border-primary/20 bg-white/80 shadow-lg">
+                  <Card className="p-4 backdrop-blur-xl border-primary/30 bg-white/80 shadow-xl hover:shadow-2xl transition-shadow">
                     <CreditCard className="w-6 h-6 text-primary mb-2 mx-auto" />
-                    <p className="text-xs font-semibold">Payments</p>
+                    <p className="text-xs font-semibold text-primary">Payment Done</p>
                   </Card>
                 </div>
+                
+                {/* Floating card 3 - Receipt Generated */}
                 <div className="animate-bounce" style={{animationDelay: '0.4s'}}>
-                  <Card className="p-4 backdrop-blur-sm border-primary/20 bg-white/80 shadow-lg">
-                    <Smartphone className="w-6 h-6 text-primary mb-2 mx-auto" />
-                    <p className="text-xs font-semibold">Mobile</p>
+                  <Card className="p-4 backdrop-blur-xl border-primary/30 bg-white/80 shadow-xl hover:shadow-2xl transition-shadow">
+                    <div className="text-3xl mb-2">🧾</div>
+                    <p className="text-xs font-semibold text-primary">Receipt Ready</p>
                   </Card>
                 </div>
               </div>
@@ -90,17 +106,22 @@ export default function Home() {
               { icon: Lock, title: 'Secure & Reliable System', desc: 'Enterprise-grade security to protect your business data' },
               { icon: Users, title: 'Multi-Payment Method Support', desc: 'Accept cash, card, mobile money, and more' }
             ].map((feature, idx) => (
-              <Card key={idx} className="p-6 hover:shadow-lg hover:border-primary/50 transition-all duration-300 group cursor-pointer">
-                <div className="mb-4 inline-block p-3 bg-secondary text-primary rounded-lg group-hover:bg-primary group-hover:text-white transition-colors">
-                  <feature.icon size={24} />
+              <Card key={idx} className="p-6 text-center hover:shadow-lg hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 group cursor-pointer">
+                <div className="mb-4 flex justify-center">
+                  <div className="p-3 text-primary group-hover:scale-110 transition-transform duration-300">
+                    <feature.icon size={32} />
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
                 <p className="text-muted-foreground text-sm">{feature.desc}</p>
               </Card>
             ))}
           </div>
         </div>
       </section>
+
+      {/* System Simulation Section */}
+      <SystemSimulation />
 
       {/* Testimonials Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">

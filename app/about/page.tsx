@@ -45,12 +45,14 @@ export default function About() {
               { icon: Users, title: 'Support', desc: 'Dedicated support team available 24/7 for assistance' },
               { icon: TrendingUp, title: 'Growth', desc: 'Help your business grow with data-driven insights' }
             ].map((goal, idx) => (
-              <Card key={idx} className="p-6">
-                <div className="mb-4 inline-block p-3 bg-primary/10 text-primary rounded-lg">
-                  <goal.icon size={24} />
+              <Card key={idx} className="p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-pointer">
+                <div className="mb-4 flex justify-center">
+                  <div className="p-3 text-primary group-hover:scale-110 transition-transform duration-300">
+                    <goal.icon size={32} />
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{goal.title}</h3>
-                <p className="text-muted-foreground">{goal.desc}</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{goal.title}</h3>
+                <p className="text-muted-foreground text-sm">{goal.desc}</p>
               </Card>
             ))}
           </div>
