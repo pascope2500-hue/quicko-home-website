@@ -65,11 +65,15 @@ export default function Home() {
             }
             @keyframes floatSmooth {
               0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-              50% { transform: translateY(-15px) rotateZ(1deg); }
+              50% { transform: translateY(-6px) rotateZ(0.5deg); }
             }
             @keyframes floatSmoothReverse {
               0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-              50% { transform: translateY(-15px) rotateZ(-1deg); }
+              50% { transform: translateY(-5px) rotateZ(-0.5deg); }
+            }
+            @keyframes floatSmoothMid {
+              0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+              50% { transform: translateY(-4px) rotateZ(0.3deg); }
             }
             @keyframes slideInRight {
               from { opacity: 0; transform: translateX(40px) rotateZ(-2deg); }
@@ -81,11 +85,13 @@ export default function Home() {
             }
           `}</style>
 
-          <div className="relative h-96 md:h-[450px] mt-16 flex items-center justify-center">
-            {/* Top-right: Payment Success Card */}
+          <div className="relative w-full mt-16" style={{ minHeight: '500px' }}>
+            {/* Top-right: Payment Success Card (Highest Z-Index) */}
             <div 
-              className="absolute top-0 right-0 md:right-12"
+              className="absolute z-30"
               style={{
+                top: '0',
+                right: '0',
                 animation: 'slideInRight 0.8s ease-out 0.8s both, floatSmooth 4s ease-in-out 0.8s infinite',
               }}
             >
@@ -113,11 +119,13 @@ export default function Home() {
               </Card>
             </div>
 
-            {/* Mid-right: Order Confirmed Card */}
+            {/* Middle: Order Confirmed Card (Middle Z-Index) */}
             <div 
-              className="absolute right-0 top-40 md:top-32 md:right-0"
+              className="absolute z-20"
               style={{
-                animation: 'slideInRight 0.8s ease-out 1s both, floatSmooth 4s ease-in-out 1s infinite',
+                top: '150px',
+                right: '80px',
+                animation: 'slideInRight 0.8s ease-out 1s both, floatSmoothMid 4s ease-in-out 1s infinite',
               }}
             >
               <Card className="p-5 backdrop-blur-md border-white/30 bg-white/15 shadow-2xl rounded-2xl w-64 md:w-80">
@@ -144,10 +152,12 @@ export default function Home() {
               </Card>
             </div>
 
-            {/* Bottom-left: Receipt Ready Card */}
+            {/* Bottom-left: Receipt Ready Card (Lowest Z-Index) */}
             <div 
-              className="absolute bottom-0 left-0 md:left-12"
+              className="absolute z-10"
               style={{
+                bottom: '20px',
+                left: '0',
                 animation: 'slideInLeft 0.8s ease-out 1.2s both, floatSmoothReverse 4s ease-in-out 1.2s infinite',
               }}
             >
