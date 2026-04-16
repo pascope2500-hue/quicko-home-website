@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { SystemSimulation } from '@/components/system-simulation'
+import { LiveOrderFlow } from '@/components/live-order-flow'
 import Link from 'next/link'
 import { BarChart3, LineChart, Smartphone, CreditCard, Lock, Users, Star, ArrowRight, PlayCircle } from 'lucide-react'
 
@@ -57,131 +58,9 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* Floating Glass Cards with Staggered Animation */}
-          <style>{`
-            @keyframes fadeIn {
-              from { opacity: 0; transform: translateY(20px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-            @keyframes floatSmooth {
-              0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-              50% { transform: translateY(-6px) rotateZ(0.5deg); }
-            }
-            @keyframes floatSmoothReverse {
-              0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-              50% { transform: translateY(-5px) rotateZ(-0.5deg); }
-            }
-            @keyframes floatSmoothMid {
-              0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-              50% { transform: translateY(-4px) rotateZ(0.3deg); }
-            }
-            @keyframes slideInRight {
-              from { opacity: 0; transform: translateX(40px) rotateZ(-2deg); }
-              to { opacity: 1; transform: translateX(0) rotateZ(0deg); }
-            }
-            @keyframes slideInLeft {
-              from { opacity: 0; transform: translateX(-40px) rotateZ(2deg); }
-              to { opacity: 1; transform: translateX(0) rotateZ(0deg); }
-            }
-          `}</style>
-
-          <div className="relative w-full mt-16" style={{ minHeight: '500px' }}>
-            {/* Top-right: Payment Success Card (Highest Z-Index) */}
-            <div 
-              className="absolute z-30"
-              style={{
-                top: '0',
-                right: '0',
-                animation: 'slideInRight 0.8s ease-out 0.8s both, floatSmooth 4s ease-in-out 0.8s infinite',
-              }}
-            >
-              <Card className="p-5 backdrop-blur-md border-white/30 bg-white/15 shadow-2xl rounded-2xl w-64 md:w-80">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <p className="text-xs text-gray-300 font-medium">Payment Successful</p>
-                    <p className="text-xl font-bold text-white mt-1">RWF 45,000</p>
-                  </div>
-                  <div className="px-2 py-1 bg-green-500/30 rounded-full">
-                    <p className="text-xs font-semibold text-green-300">Paid</p>
-                  </div>
-                </div>
-                <div className="space-y-2 mb-4 pb-4 border-b border-white/20">
-                  <div className="flex justify-between text-xs text-gray-300">
-                    <span>Mobile Money</span>
-                    <span className="font-semibold text-white">RWF 25,000</span>
-                  </div>
-                  <div className="flex justify-between text-xs text-gray-300">
-                    <span>Bank Transfer</span>
-                    <span className="font-semibold text-white">RWF 20,000</span>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-400">ID: #ORD-2024-8832</p>
-              </Card>
-            </div>
-
-            {/* Middle: Order Confirmed Card (Middle Z-Index) */}
-            <div 
-              className="absolute z-20"
-              style={{
-                top: '150px',
-                right: '80px',
-                animation: 'slideInRight 0.8s ease-out 1s both, floatSmoothMid 4s ease-in-out 1s infinite',
-              }}
-            >
-              <Card className="p-5 backdrop-blur-md border-white/30 bg-white/15 shadow-2xl rounded-2xl w-64 md:w-80">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500/30">
-                    <span className="text-lg">✓</span>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-300 font-medium">Order Confirmed</p>
-                    <p className="text-sm font-bold text-white">#ORD-2024-8832</p>
-                  </div>
-                </div>
-                <div className="space-y-2 mb-4 pb-4 border-b border-white/20">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-300">Laptops Pro (x2)</span>
-                    <span className="text-white font-semibold">2 items</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-300">Qty total</span>
-                    <span className="text-white font-semibold">2</span>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-400">Processing...</p>
-              </Card>
-            </div>
-
-            {/* Bottom-left: Receipt Ready Card (Lowest Z-Index) */}
-            <div 
-              className="absolute z-10"
-              style={{
-                bottom: '20px',
-                left: '0',
-                animation: 'slideInLeft 0.8s ease-out 1.2s both, floatSmoothReverse 4s ease-in-out 1.2s infinite',
-              }}
-            >
-              <Card className="p-5 backdrop-blur-md border-white/30 bg-white/15 shadow-2xl rounded-2xl w-64 md:w-80">
-                <div className="mb-4">
-                  <p className="text-xs text-gray-300 font-medium mb-2">Receipt Ready</p>
-                  <div className="bg-white/10 rounded-lg p-3 space-y-1.5 text-xs text-gray-300">
-                    <div className="flex justify-between border-b border-white/20 pb-2">
-                      <span>Subtotal:</span>
-                      <span className="text-white font-semibold">RWF 40,000</span>
-                    </div>
-                    <div className="flex justify-between border-b border-white/20 pb-2">
-                      <span>Tax (16%):</span>
-                      <span className="text-white font-semibold">RWF 5,000</span>
-                    </div>
-                    <div className="flex justify-between pt-2">
-                      <span className="font-semibold">Total:</span>
-                      <span className="text-lg font-bold text-white">RWF 45,000</span>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-400">ID: RCP-2024-8832</p>
-              </Card>
-            </div>
+          {/* Live Order Flow Simulation */}
+          <div className="mt-16 px-4">
+            <LiveOrderFlow />
           </div>
         </div>
       </section>
