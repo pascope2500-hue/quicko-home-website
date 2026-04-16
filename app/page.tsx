@@ -13,23 +13,20 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden group">
-        {/* Background with POS Dashboard Image */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background with sharp POS Dashboard Image */}
         <div className="absolute inset-0">
-          {/* Dashboard background image with blur */}
+          {/* Sharp dashboard background image - no blur */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-sm"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: 'url(/pos-dashboard.jpg)',
-              transform: 'scale(1.05)',
             }}
           />
           
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/50" />
-          
-          {/* Additional gradient overlay for depth */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-30" />
+          {/* Dark gradient overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40" />
         </div>
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -60,68 +57,120 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* Floating Cards with Parallax Effect */}
+          {/* Floating Glass Cards with Staggered Animation */}
           <style>{`
             @keyframes fadeIn {
               from { opacity: 0; transform: translateY(20px); }
               to { opacity: 1; transform: translateY(0); }
             }
-            @keyframes floatParallax {
-              0%, 100% { transform: translateY(0px); }
-              50% { transform: translateY(-20px); }
+            @keyframes floatSmooth {
+              0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+              50% { transform: translateY(-15px) rotateZ(1deg); }
             }
-            @keyframes floatParallaxLeft {
-              0%, 100% { transform: translateY(0px) translateX(0px); }
-              50% { transform: translateY(-15px) translateX(-10px); }
+            @keyframes floatSmoothReverse {
+              0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+              50% { transform: translateY(-15px) rotateZ(-1deg); }
             }
-            @keyframes floatParallaxRight {
-              0%, 100% { transform: translateY(0px) translateX(0px); }
-              50% { transform: translateY(-25px) translateX(10px); }
+            @keyframes slideInRight {
+              from { opacity: 0; transform: translateX(40px) rotateZ(-2deg); }
+              to { opacity: 1; transform: translateX(0) rotateZ(0deg); }
+            }
+            @keyframes slideInLeft {
+              from { opacity: 0; transform: translateX(-40px) rotateZ(2deg); }
+              to { opacity: 1; transform: translateX(0) rotateZ(0deg); }
             }
           `}</style>
 
-          <div className="relative h-80 md:h-96 mt-12">
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
-              <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto perspective">
-                {/* Floating card 1 - Order Confirmed */}
-                <div 
-                  className="animate-fade-in" 
-                  style={{
-                    animation: 'floatParallaxLeft 4s ease-in-out infinite, fadeIn 0.8s ease-out 0.8s both',
-                  }}
-                >
-                  <Card className="p-4 backdrop-blur-xl border-white/40 bg-white/90 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                    <div className="text-4xl mb-2">✅</div>
-                    <p className="text-xs font-semibold text-primary">Order Confirmed</p>
-                  </Card>
+          <div className="relative h-96 md:h-[450px] mt-16 flex items-center justify-center">
+            {/* Top-right: Payment Success Card */}
+            <div 
+              className="absolute top-0 right-0 md:right-12"
+              style={{
+                animation: 'slideInRight 0.8s ease-out 0.8s both, floatSmooth 4s ease-in-out 0.8s infinite',
+              }}
+            >
+              <Card className="p-5 backdrop-blur-md border-white/30 bg-white/15 shadow-2xl rounded-2xl w-64 md:w-80">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <p className="text-xs text-gray-300 font-medium">Payment Successful</p>
+                    <p className="text-xl font-bold text-white mt-1">RWF 45,000</p>
+                  </div>
+                  <div className="px-2 py-1 bg-green-500/30 rounded-full">
+                    <p className="text-xs font-semibold text-green-300">Paid</p>
+                  </div>
                 </div>
-                
-                {/* Floating card 2 - Payment Success */}
-                <div 
-                  className="animate-fade-in"
-                  style={{
-                    animation: 'floatParallax 4s ease-in-out infinite, fadeIn 0.8s ease-out 1s both',
-                  }}
-                >
-                  <Card className="p-4 backdrop-blur-xl border-white/40 bg-white/90 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                    <CreditCard className="w-7 h-7 text-primary mb-2 mx-auto" />
-                    <p className="text-xs font-semibold text-primary">Payment Done</p>
-                  </Card>
+                <div className="space-y-2 mb-4 pb-4 border-b border-white/20">
+                  <div className="flex justify-between text-xs text-gray-300">
+                    <span>Mobile Money</span>
+                    <span className="font-semibold text-white">RWF 25,000</span>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-300">
+                    <span>Bank Transfer</span>
+                    <span className="font-semibold text-white">RWF 20,000</span>
+                  </div>
                 </div>
-                
-                {/* Floating card 3 - Receipt Generated */}
-                <div 
-                  className="animate-fade-in"
-                  style={{
-                    animation: 'floatParallaxRight 4s ease-in-out infinite, fadeIn 0.8s ease-out 1.2s both',
-                  }}
-                >
-                  <Card className="p-4 backdrop-blur-xl border-white/40 bg-white/90 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                    <div className="text-4xl mb-2">🧾</div>
-                    <p className="text-xs font-semibold text-primary">Receipt Ready</p>
-                  </Card>
+                <p className="text-xs text-gray-400">ID: #ORD-2024-8832</p>
+              </Card>
+            </div>
+
+            {/* Mid-right: Order Confirmed Card */}
+            <div 
+              className="absolute right-0 top-40 md:top-32 md:right-0"
+              style={{
+                animation: 'slideInRight 0.8s ease-out 1s both, floatSmooth 4s ease-in-out 1s infinite',
+              }}
+            >
+              <Card className="p-5 backdrop-blur-md border-white/30 bg-white/15 shadow-2xl rounded-2xl w-64 md:w-80">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500/30">
+                    <span className="text-lg">✓</span>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-300 font-medium">Order Confirmed</p>
+                    <p className="text-sm font-bold text-white">#ORD-2024-8832</p>
+                  </div>
                 </div>
-              </div>
+                <div className="space-y-2 mb-4 pb-4 border-b border-white/20">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-300">Laptops Pro (x2)</span>
+                    <span className="text-white font-semibold">2 items</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-300">Qty total</span>
+                    <span className="text-white font-semibold">2</span>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-400">Processing...</p>
+              </Card>
+            </div>
+
+            {/* Bottom-left: Receipt Ready Card */}
+            <div 
+              className="absolute bottom-0 left-0 md:left-12"
+              style={{
+                animation: 'slideInLeft 0.8s ease-out 1.2s both, floatSmoothReverse 4s ease-in-out 1.2s infinite',
+              }}
+            >
+              <Card className="p-5 backdrop-blur-md border-white/30 bg-white/15 shadow-2xl rounded-2xl w-64 md:w-80">
+                <div className="mb-4">
+                  <p className="text-xs text-gray-300 font-medium mb-2">Receipt Ready</p>
+                  <div className="bg-white/10 rounded-lg p-3 space-y-1.5 text-xs text-gray-300">
+                    <div className="flex justify-between border-b border-white/20 pb-2">
+                      <span>Subtotal:</span>
+                      <span className="text-white font-semibold">RWF 40,000</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/20 pb-2">
+                      <span>Tax (16%):</span>
+                      <span className="text-white font-semibold">RWF 5,000</span>
+                    </div>
+                    <div className="flex justify-between pt-2">
+                      <span className="font-semibold">Total:</span>
+                      <span className="text-lg font-bold text-white">RWF 45,000</span>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-400">ID: RCP-2024-8832</p>
+              </Card>
             </div>
           </div>
         </div>
