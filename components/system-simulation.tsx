@@ -6,7 +6,6 @@ import { Check, ShoppingCart, CreditCard, Receipt } from 'lucide-react'
 
 export function SystemSimulation() {
   const [activeStep, setActiveStep] = useState(0)
-  const [flowProgress, setFlowProgress] = useState(0)
 
   useEffect(() => {
     const timeline = [
@@ -21,7 +20,6 @@ export function SystemSimulation() {
       setTimeout(() => {
         if (event.reset) {
           setActiveStep(0)
-          setFlowProgress(0)
         } else {
           setActiveStep(event.step!)
         }
@@ -31,21 +29,14 @@ export function SystemSimulation() {
     return () => timeouts.forEach(clearTimeout)
   }, [])
 
-  // Calculate flow progress along the path (0-4)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFlowProgress((prev) => {
-        const newProgress = (prev + 0.02) % 4
-        return newProgress
-      })
-    }, 50)
-    return () => clearInterval(interval)
-  }, [])
-
+  // Step definitions with triangle positions
   const steps = [
     {
+      id: 0,
       icon: ShoppingCart,
       title: 'Order Creation',
+      position: 'bottom-left',
+      gridClass: 'col-span-1 row-start-3 col-start-1',
       content: (
         <div className="space-y-2">
           <p className="text-xs text-gray-300 font-semibold">Order ID: #ORD-2024-9847</p>
@@ -59,8 +50,11 @@ export function SystemSimulation() {
       )
     },
     {
+      id: 1,
       icon: Check,
       title: 'Order Confirmed',
+      position: 'top-center',
+      gridClass: 'col-span-1 row-start-1 col-start-2',
       content: (
         <div className="space-y-2">
           <p className="text-xs text-gray-300 font-semibold">Order ID: #ORD-2024-9847</p>
@@ -73,8 +67,11 @@ export function SystemSimulation() {
       )
     },
     {
+      id: 2,
       icon: CreditCard,
       title: 'Payment Successful',
+      position: 'top-right',
+      gridClass: 'col-span-1 row-start-1 col-start-3',
       content: (
         <div className="space-y-2">
           <p className="text-xs text-gray-300 font-semibold">RWF 19,000</p>
@@ -82,15 +79,18 @@ export function SystemSimulation() {
             <span className="px-2 py-0.5 bg-green-500/30 rounded text-xs font-semibold text-green-300">PAID</span>
           </div>
           <div className="text-xs space-y-1">
-            <p className="text-gray-400">Mobile Money: 12,000</p>
-            <p className="text-gray-400">Bank Transfer: 7,000</p>
+            <p className="text-gray-400">Mobile Money: 12K</p>
+            <p className="text-gray-400">Bank Transfer: 7K</p>
           </div>
         </div>
       )
     },
     {
+      id: 3,
       icon: Receipt,
       title: 'Receipt Ready',
+      position: 'bottom-center',
+      gridClass: 'col-span-1 row-start-3 col-start-2',
       content: (
         <div className="space-y-2">
           <p className="text-xs text-gray-300 font-semibold font-mono">QUICKO RECEIPT</p>
@@ -118,7 +118,7 @@ export function SystemSimulation() {
   ]
 
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 -z-20">
         <div
@@ -132,9 +132,9 @@ export function SystemSimulation() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* LIVE DEMO MODE Badge */}
-        <div className="flex justify-center mb-12">
+      <div className="max-w-5xl mx-auto relative z-10">
+        {/* Header with LIVE DEMO MODE Badge */}
+        <div className="flex justify-center items-center gap-3 mb-16">
           <div className="flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-md border border-white/30 bg-white/10 shadow-lg">
             <span className="inline-block w-2.5 h-2.5 rounded-full bg-red-500" style={{ animation: 'pulse 1s ease-in-out infinite' }} />
             <div>
@@ -150,90 +150,132 @@ export function SystemSimulation() {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.15); }
           }
-          @keyframes flowGlow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4)); }
-            50% { filter: drop-shadow(0 0 16px rgba(59, 130, 246, 0.8)); }
-          }
           @keyframes slideIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
           }
+          @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), inset 0 0 30px rgba(59, 130, 246, 0.2); }
+          }
+          @keyframes flowLine {
+            0%, 100% { stroke-dashoffset: 0; }
+            50% { stroke-dashoffset: 10; }
+          }
         `}</style>
 
-        {/* Horizontal Pipeline */}
+        {/* Triangular Layout Container */}
         <div className="relative">
-          {/* Arrow connectors SVG */}
+          {/* SVG for connecting lines */}
           <svg
-            className="absolute inset-0 w-full h-24"
-            style={{ top: '50px', zIndex: 1, overflow: 'visible' }}
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ zIndex: 5 }}
             preserveAspectRatio="none"
           >
             <defs>
-              <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
-                <stop offset="50%" stopColor="rgba(59, 130, 246, 0.6)" />
-                <stop offset="100%" stopColor="rgba(255,255,255,0.1)" />
-              </linearGradient>
               <marker
                 id="arrowEnd"
                 markerWidth="10"
                 markerHeight="10"
-                refX="9"
+                refX="5"
                 refY="3"
                 orient="auto"
               >
-                <polygon points="0 0, 10 3, 0 6" fill="rgba(59, 130, 246, 0.6)" />
+                <polygon points="0 0, 10 3, 0 6" fill="rgba(59, 130, 246, 0.4)" />
               </marker>
             </defs>
-            {/* Main arrow path */}
+
+            {/* Top left to top center */}
             <path
-              d="M 40 20 L calc(100% - 40px) 20"
-              stroke="url(#flowGradient)"
-              strokeWidth="3"
+              d="M 33.33% 120 L 50% 80"
+              stroke="rgba(59, 130, 246, 0.2)"
+              strokeWidth="2"
               fill="none"
               markerEnd="url(#arrowEnd)"
-              style={{ animation: 'flowGlow 2s ease-in-out infinite' }}
-            />
-            {/* Animated flow indicator */}
-            <circle
-              cx={`${(flowProgress / 4) * 100}%`}
-              cy="20"
-              r="8"
-              fill="rgba(59, 130, 246, 0.8)"
+              opacity={activeStep === 0 ? 0.6 : 0.2}
               style={{
-                boxShadow: '0 0 16px rgba(59, 130, 246, 0.8)',
-                filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.8))',
-                transition: 'cx 0.05s linear'
+                transition: 'opacity 0.6s ease',
+                strokeDasharray: activeStep === 0 ? '5,5' : '0',
+                animation: activeStep === 0 ? 'flowLine 2s linear infinite' : 'none'
+              }}
+            />
+
+            {/* Top center to top right */}
+            <path
+              d="M 50% 80 L 66.67% 120"
+              stroke="rgba(59, 130, 246, 0.2)"
+              strokeWidth="2"
+              fill="none"
+              markerEnd="url(#arrowEnd)"
+              opacity={activeStep === 1 ? 0.6 : 0.2}
+              style={{
+                transition: 'opacity 0.6s ease',
+                strokeDasharray: activeStep === 1 ? '5,5' : '0',
+                animation: activeStep === 1 ? 'flowLine 2s linear infinite' : 'none'
+              }}
+            />
+
+            {/* Top right to bottom center */}
+            <path
+              d="M 66.67% 120 L 50% 360"
+              stroke="rgba(59, 130, 246, 0.2)"
+              strokeWidth="2"
+              fill="none"
+              markerEnd="url(#arrowEnd)"
+              opacity={activeStep === 2 ? 0.6 : 0.2}
+              style={{
+                transition: 'opacity 0.6s ease',
+                strokeDasharray: activeStep === 2 ? '5,5' : '0',
+                animation: activeStep === 2 ? 'flowLine 2s linear infinite' : 'none'
+              }}
+            />
+
+            {/* Bottom center to bottom left */}
+            <path
+              d="M 50% 360 L 33.33% 120"
+              stroke="rgba(59, 130, 246, 0.2)"
+              strokeWidth="2"
+              fill="none"
+              markerEnd="url(#arrowEnd)"
+              opacity={activeStep === 3 ? 0.6 : 0.2}
+              style={{
+                transition: 'opacity 0.6s ease',
+                strokeDasharray: activeStep === 3 ? '5,5' : '0',
+                animation: activeStep === 3 ? 'flowLine 2s linear infinite' : 'none'
               }}
             />
           </svg>
 
-          {/* Step Cards - Horizontal Layout */}
-          <div className="grid grid-cols-4 gap-4 mt-20">
-            {steps.map((step, idx) => {
-              const Icon = step.icon
-              const isActive = activeStep === idx
-              const isPast = idx < activeStep
+          {/* Triangle Grid Layout */}
+          <div className="grid grid-cols-3 gap-8" style={{ minHeight: '500px', rowGap: '60px' }}>
+            {steps.map((step) => {
+              const isActive = activeStep === step.id
+              const isPast = step.id < activeStep
 
               return (
                 <div
-                  key={idx}
-                  className={`transition-all duration-500 ${isActive ? 'scale-105' : isPast ? 'scale-95 opacity-70' : 'scale-100'}`}
-                  style={{ animation: isActive ? 'slideIn 0.6s ease-out' : 'none' }}
+                  key={step.id}
+                  className={step.gridClass}
+                  style={{
+                    animation: isActive ? 'slideIn 0.6s ease-out' : 'none'
+                  }}
                 >
                   <Card
-                    className={`p-4 rounded-xl backdrop-blur-md transition-all duration-500 ${
+                    className={`p-5 rounded-xl backdrop-blur-md transition-all duration-500 h-full ${
                       isActive
-                        ? 'border-primary/80 bg-white/20 shadow-2xl border-2'
+                        ? 'border-primary/80 bg-white/20 shadow-2xl border-2 scale-105'
                         : isPast
-                          ? 'border-green-500/50 bg-green-500/10 opacity-60'
-                          : 'border-white/30 bg-white/10'
+                          ? 'border-green-500/50 bg-green-500/10 opacity-60 scale-95'
+                          : 'border-white/30 bg-white/10 scale-100'
                     }`}
+                    style={{
+                      animation: isActive ? 'glow 2s ease-in-out infinite' : 'none'
+                    }}
                   >
                     {/* Header with Icon */}
                     <div className="flex items-center gap-2 mb-3">
                       <div
-                        className={`p-2 rounded-lg ${
+                        className={`p-2 rounded-lg transition-all duration-500 ${
                           isActive
                             ? 'bg-primary/40 text-primary'
                             : isPast
@@ -241,22 +283,26 @@ export function SystemSimulation() {
                               : 'bg-white/10 text-gray-400'
                         }`}
                       >
-                        <Icon size={16} />
+                        {step.icon && <step.icon size={16} />}
                       </div>
-                      <h4 className={`text-xs font-semibold ${isActive ? 'text-white' : isPast ? 'text-green-300' : 'text-gray-300'}`}>
+                      <h4
+                        className={`text-sm font-semibold transition-all duration-500 ${
+                          isActive ? 'text-white' : isPast ? 'text-green-300' : 'text-gray-300'
+                        }`}
+                      >
                         {step.title}
                       </h4>
                     </div>
 
                     {/* Content */}
-                    <div className={isActive ? 'text-white' : isPast ? 'text-green-200' : 'text-gray-300'}>
+                    <div className={`transition-all duration-500 ${isActive ? 'text-white' : isPast ? 'text-green-200' : 'text-gray-300'}`}>
                       {step.content}
                     </div>
 
                     {/* Completion Badge */}
                     {isPast && (
-                      <div className="mt-2 flex items-center gap-1 text-xs text-green-300">
-                        <Check size={12} />
+                      <div className="mt-3 flex items-center gap-1 text-xs text-green-300">
+                        <Check size={14} />
                         <span>Completed</span>
                       </div>
                     )}
