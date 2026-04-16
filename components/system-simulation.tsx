@@ -29,21 +29,18 @@ export function SystemSimulation() {
     return () => timeouts.forEach(clearTimeout)
   }, [])
 
-  // Step definitions with triangle positions
   const steps = [
     {
       id: 0,
       icon: ShoppingCart,
       title: 'Order Creation',
-      position: 'bottom-left',
-      gridClass: 'col-span-1 row-start-3 col-start-1',
       content: (
         <div className="space-y-2">
           <p className="text-xs text-gray-300 font-semibold">Order ID: #ORD-2024-9847</p>
           <div className="text-xs space-y-1">
-            <p className="text-gray-400">Beer ×2</p>
-            <p className="text-gray-400">Soda ×1</p>
-            <p className="text-gray-400">Burger ×1</p>
+            <p className="text-gray-400">Beer ×2 - RWF 12,000</p>
+            <p className="text-gray-400">Soda ×1 - RWF 2,000</p>
+            <p className="text-gray-400">Burger ×1 - RWF 5,000</p>
           </div>
           <p className="text-xs text-gray-400 italic">Customer is placing order...</p>
         </div>
@@ -53,8 +50,6 @@ export function SystemSimulation() {
       id: 1,
       icon: Check,
       title: 'Order Confirmed',
-      position: 'top-center',
-      gridClass: 'col-span-1 row-start-1 col-start-2',
       content: (
         <div className="space-y-2">
           <p className="text-xs text-gray-300 font-semibold">Order ID: #ORD-2024-9847</p>
@@ -63,6 +58,7 @@ export function SystemSimulation() {
             <span className="text-xs text-green-300">Stock updated</span>
           </div>
           <p className="text-xs text-gray-400">3 items reserved</p>
+          <p className="text-xs text-gray-400">Waiting for payment...</p>
         </div>
       )
     },
@@ -70,17 +66,15 @@ export function SystemSimulation() {
       id: 2,
       icon: CreditCard,
       title: 'Payment Successful',
-      position: 'top-right',
-      gridClass: 'col-span-1 row-start-1 col-start-3',
       content: (
         <div className="space-y-2">
-          <p className="text-xs text-gray-300 font-semibold">RWF 19,000</p>
+          <p className="text-xs text-gray-300 font-semibold">Amount: RWF 19,000</p>
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 bg-green-500/30 rounded text-xs font-semibold text-green-300">PAID</span>
           </div>
           <div className="text-xs space-y-1">
-            <p className="text-gray-400">Mobile Money: 12K</p>
-            <p className="text-gray-400">Bank Transfer: 7K</p>
+            <p className="text-gray-400">Mobile Money: RWF 12,000</p>
+            <p className="text-gray-400">Bank Transfer: RWF 7,000</p>
           </div>
         </div>
       )
@@ -89,28 +83,26 @@ export function SystemSimulation() {
       id: 3,
       icon: Receipt,
       title: 'Receipt Ready',
-      position: 'bottom-center',
-      gridClass: 'col-span-1 row-start-3 col-start-2',
       content: (
         <div className="space-y-2">
           <p className="text-xs text-gray-300 font-semibold font-mono">QUICKO RECEIPT</p>
-          <div className="text-xs space-y-0.5 border-t border-white/20 pt-1">
+          <div className="text-xs space-y-0.5 border-t border-white/20 pt-2">
             <div className="flex justify-between">
               <span className="text-gray-400">Beer ×2</span>
-              <span className="text-white">12K</span>
+              <span className="text-white">RWF 12,000</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Soda ×1</span>
-              <span className="text-white">2K</span>
+              <span className="text-white">RWF 2,000</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Burger ×1</span>
-              <span className="text-white">5K</span>
+              <span className="text-white">RWF 5,000</span>
             </div>
           </div>
-          <div className="border-t border-white/20 pt-1 flex justify-between font-semibold text-xs">
+          <div className="border-t border-white/20 pt-2 flex justify-between font-semibold text-xs">
             <span>TOTAL:</span>
-            <span className="text-white">RWF 19K</span>
+            <span className="text-white">RWF 19,000</span>
           </div>
         </div>
       )
@@ -132,45 +124,41 @@ export function SystemSimulation() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
       </div>
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header with LIVE DEMO MODE Badge */}
-        <div className="flex justify-center items-center gap-3 mb-16">
+        <div className="flex justify-center mb-16">
           <div className="flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-md border border-white/30 bg-white/10 shadow-lg">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-red-500" style={{ animation: 'pulse 1s ease-in-out infinite' }} />
-            <div>
-              <p className="text-sm font-bold text-white">LIVE DEMO MODE</p>
-              <p className="text-xs text-gray-300">Real-time POS transaction flow</p>
-            </div>
+            <span 
+              className="inline-block w-2.5 h-2.5 rounded-full bg-red-500" 
+              style={{ animation: 'blink 1.5s ease-in-out infinite' }} 
+            />
+            <p className="text-sm font-bold text-white">🔴 LIVE DEMO MODE</p>
           </div>
         </div>
 
         {/* Animations */}
         <style>{`
-          @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-          }
-          @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+          @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
           }
           @keyframes glow {
             0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.1); }
             50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), inset 0 0 30px rgba(59, 130, 246, 0.2); }
           }
-          @keyframes flowLine {
-            0%, 100% { stroke-dashoffset: 0; }
-            50% { stroke-dashoffset: 10; }
+          @keyframes fadeTransition {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
           }
         `}</style>
 
-        {/* Triangular Layout Container */}
-        <div className="relative">
+        {/* Cross/Plus Layout */}
+        <div className="relative flex justify-center items-center" style={{ minHeight: '500px' }}>
           {/* SVG for connecting lines */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ zIndex: 5 }}
-            preserveAspectRatio="none"
+            style={{ zIndex: 1 }}
+            preserveAspectRatio="xMidYMid meet"
           >
             <defs>
               <marker
@@ -185,131 +173,180 @@ export function SystemSimulation() {
               </marker>
             </defs>
 
-            {/* Top left to top center */}
+            {/* Order Creation to Order Confirmed */}
             <path
-              d="M 33.33% 120 L 50% 80"
+              d="M 25% 50% L 50% 20%"
               stroke="rgba(59, 130, 246, 0.2)"
               strokeWidth="2"
               fill="none"
               markerEnd="url(#arrowEnd)"
               opacity={activeStep === 0 ? 0.6 : 0.2}
               style={{
-                transition: 'opacity 0.6s ease',
-                strokeDasharray: activeStep === 0 ? '5,5' : '0',
-                animation: activeStep === 0 ? 'flowLine 2s linear infinite' : 'none'
+                transition: 'opacity 0.5s ease'
               }}
             />
 
-            {/* Top center to top right */}
+            {/* Order Confirmed to Payment Successful */}
             <path
-              d="M 50% 80 L 66.67% 120"
+              d="M 50% 20% L 75% 50%"
               stroke="rgba(59, 130, 246, 0.2)"
               strokeWidth="2"
               fill="none"
               markerEnd="url(#arrowEnd)"
               opacity={activeStep === 1 ? 0.6 : 0.2}
               style={{
-                transition: 'opacity 0.6s ease',
-                strokeDasharray: activeStep === 1 ? '5,5' : '0',
-                animation: activeStep === 1 ? 'flowLine 2s linear infinite' : 'none'
+                transition: 'opacity 0.5s ease'
               }}
             />
 
-            {/* Top right to bottom center */}
+            {/* Payment Successful to Receipt Ready */}
             <path
-              d="M 66.67% 120 L 50% 360"
+              d="M 75% 50% L 50% 80%"
               stroke="rgba(59, 130, 246, 0.2)"
               strokeWidth="2"
               fill="none"
               markerEnd="url(#arrowEnd)"
               opacity={activeStep === 2 ? 0.6 : 0.2}
               style={{
-                transition: 'opacity 0.6s ease',
-                strokeDasharray: activeStep === 2 ? '5,5' : '0',
-                animation: activeStep === 2 ? 'flowLine 2s linear infinite' : 'none'
+                transition: 'opacity 0.5s ease'
               }}
             />
 
-            {/* Bottom center to bottom left */}
+            {/* Receipt Ready back to Order Creation */}
             <path
-              d="M 50% 360 L 33.33% 120"
+              d="M 50% 80% L 25% 50%"
               stroke="rgba(59, 130, 246, 0.2)"
               strokeWidth="2"
               fill="none"
               markerEnd="url(#arrowEnd)"
               opacity={activeStep === 3 ? 0.6 : 0.2}
               style={{
-                transition: 'opacity 0.6s ease',
-                strokeDasharray: activeStep === 3 ? '5,5' : '0',
-                animation: activeStep === 3 ? 'flowLine 2s linear infinite' : 'none'
+                transition: 'opacity 0.5s ease'
               }}
             />
           </svg>
 
-          {/* Triangle Grid Layout */}
-          <div className="grid grid-cols-3 gap-8" style={{ minHeight: '500px', rowGap: '60px' }}>
-            {steps.map((step) => {
-              const isActive = activeStep === step.id
-              const isPast = step.id < activeStep
-
-              return (
-                <div
-                  key={step.id}
-                  className={step.gridClass}
-                  style={{
-                    animation: isActive ? 'slideIn 0.6s ease-out' : 'none'
-                  }}
-                >
-                  <Card
-                    className={`p-5 rounded-xl backdrop-blur-md transition-all duration-500 h-full ${
-                      isActive
-                        ? 'border-primary/80 bg-white/20 shadow-2xl border-2 scale-105'
-                        : isPast
-                          ? 'border-green-500/50 bg-green-500/10 opacity-60 scale-95'
-                          : 'border-white/30 bg-white/10 scale-100'
+          {/* Cards in Cross Layout */}
+          <div className="absolute w-full h-full flex items-center justify-center" style={{ zIndex: 5 }}>
+            {/* Order Creation - Left */}
+            <div className="absolute" style={{ left: '5%', top: '50%', transform: 'translateY(-50%)' }}>
+              <Card
+                className={`w-64 p-5 rounded-xl backdrop-blur-md transition-all duration-500 ${
+                  activeStep === 0
+                    ? 'border-primary/80 bg-white/20 shadow-2xl border-2 scale-105'
+                    : 'border-white/30 bg-white/10 opacity-65'
+                }`}
+                style={{
+                  animation: activeStep === 0 ? 'glow 2s ease-in-out infinite' : 'none'
+                }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div
+                    className={`p-2 rounded-lg transition-all duration-500 ${
+                      activeStep === 0 ? 'bg-primary/40 text-primary' : 'bg-white/10 text-gray-400'
                     }`}
-                    style={{
-                      animation: isActive ? 'glow 2s ease-in-out infinite' : 'none'
-                    }}
                   >
-                    {/* Header with Icon */}
-                    <div className="flex items-center gap-2 mb-3">
-                      <div
-                        className={`p-2 rounded-lg transition-all duration-500 ${
-                          isActive
-                            ? 'bg-primary/40 text-primary'
-                            : isPast
-                              ? 'bg-green-500/30 text-green-300'
-                              : 'bg-white/10 text-gray-400'
-                        }`}
-                      >
-                        {step.icon && <step.icon size={16} />}
-                      </div>
-                      <h4
-                        className={`text-sm font-semibold transition-all duration-500 ${
-                          isActive ? 'text-white' : isPast ? 'text-green-300' : 'text-gray-300'
-                        }`}
-                      >
-                        {step.title}
-                      </h4>
-                    </div>
-
-                    {/* Content */}
-                    <div className={`transition-all duration-500 ${isActive ? 'text-white' : isPast ? 'text-green-200' : 'text-gray-300'}`}>
-                      {step.content}
-                    </div>
-
-                    {/* Completion Badge */}
-                    {isPast && (
-                      <div className="mt-3 flex items-center gap-1 text-xs text-green-300">
-                        <Check size={14} />
-                        <span>Completed</span>
-                      </div>
-                    )}
-                  </Card>
+                    <ShoppingCart size={16} />
+                  </div>
+                  <h4 className={`text-sm font-semibold transition-all duration-500 ${activeStep === 0 ? 'text-white' : 'text-gray-300'}`}>
+                    Order Creation
+                  </h4>
                 </div>
-              )
-            })}
+                <div className={`transition-all duration-500 ${activeStep === 0 ? 'text-white' : 'text-gray-300'}`}>
+                  {steps[0].content}
+                </div>
+              </Card>
+            </div>
+
+            {/* Order Confirmed - Top */}
+            <div className="absolute" style={{ left: '50%', top: '5%', transform: 'translateX(-50%)' }}>
+              <Card
+                className={`w-64 p-5 rounded-xl backdrop-blur-md transition-all duration-500 ${
+                  activeStep === 1
+                    ? 'border-primary/80 bg-white/20 shadow-2xl border-2 scale-105'
+                    : 'border-white/30 bg-white/10 opacity-65'
+                }`}
+                style={{
+                  animation: activeStep === 1 ? 'glow 2s ease-in-out infinite' : 'none'
+                }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div
+                    className={`p-2 rounded-lg transition-all duration-500 ${
+                      activeStep === 1 ? 'bg-primary/40 text-primary' : 'bg-white/10 text-gray-400'
+                    }`}
+                  >
+                    <Check size={16} />
+                  </div>
+                  <h4 className={`text-sm font-semibold transition-all duration-500 ${activeStep === 1 ? 'text-white' : 'text-gray-300'}`}>
+                    Order Confirmed
+                  </h4>
+                </div>
+                <div className={`transition-all duration-500 ${activeStep === 1 ? 'text-white' : 'text-gray-300'}`}>
+                  {steps[1].content}
+                </div>
+              </Card>
+            </div>
+
+            {/* Payment Successful - Right */}
+            <div className="absolute" style={{ right: '5%', top: '50%', transform: 'translateY(-50%)' }}>
+              <Card
+                className={`w-64 p-5 rounded-xl backdrop-blur-md transition-all duration-500 ${
+                  activeStep === 2
+                    ? 'border-primary/80 bg-white/20 shadow-2xl border-2 scale-105'
+                    : 'border-white/30 bg-white/10 opacity-65'
+                }`}
+                style={{
+                  animation: activeStep === 2 ? 'glow 2s ease-in-out infinite' : 'none'
+                }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div
+                    className={`p-2 rounded-lg transition-all duration-500 ${
+                      activeStep === 2 ? 'bg-primary/40 text-primary' : 'bg-white/10 text-gray-400'
+                    }`}
+                  >
+                    <CreditCard size={16} />
+                  </div>
+                  <h4 className={`text-sm font-semibold transition-all duration-500 ${activeStep === 2 ? 'text-white' : 'text-gray-300'}`}>
+                    Payment Successful
+                  </h4>
+                </div>
+                <div className={`transition-all duration-500 ${activeStep === 2 ? 'text-white' : 'text-gray-300'}`}>
+                  {steps[2].content}
+                </div>
+              </Card>
+            </div>
+
+            {/* Receipt Ready - Bottom */}
+            <div className="absolute" style={{ left: '50%', bottom: '5%', transform: 'translateX(-50%)' }}>
+              <Card
+                className={`w-64 p-5 rounded-xl backdrop-blur-md transition-all duration-500 ${
+                  activeStep === 3
+                    ? 'border-primary/80 bg-white/20 shadow-2xl border-2 scale-105'
+                    : 'border-white/30 bg-white/10 opacity-65'
+                }`}
+                style={{
+                  animation: activeStep === 3 ? 'glow 2s ease-in-out infinite' : 'none'
+                }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div
+                    className={`p-2 rounded-lg transition-all duration-500 ${
+                      activeStep === 3 ? 'bg-primary/40 text-primary' : 'bg-white/10 text-gray-400'
+                    }`}
+                  >
+                    <Receipt size={16} />
+                  </div>
+                  <h4 className={`text-sm font-semibold transition-all duration-500 ${activeStep === 3 ? 'text-white' : 'text-gray-300'}`}>
+                    Receipt Ready
+                  </h4>
+                </div>
+                <div className={`transition-all duration-500 ${activeStep === 3 ? 'text-white' : 'text-gray-300'}`}>
+                  {steps[3].content}
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
