@@ -13,35 +13,39 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Enhanced Background with layered gradient */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden group">
+        {/* Background with POS Dashboard Image */}
         <div className="absolute inset-0">
-          {/* Base gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+          {/* Dashboard background image with blur */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-sm"
+            style={{
+              backgroundImage: 'url(/pos-dashboard.jpg)',
+              transform: 'scale(1.05)',
+            }}
+          />
           
-          {/* Multi-layer gradient overlay for depth */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent opacity-60" />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/50" />
           
-          {/* Floating animated shapes */}
-          <div className="absolute top-20 right-10 w-72 h-72 bg-primary/15 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-10 w-96 h-96 bg-secondary/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          {/* Additional gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-30" />
         </div>
         
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-6">
+          <div className="mb-6 animate-fade-in" style={{ animation: 'fadeIn 0.8s ease-out' }}>
             <Badge variant="secondary" className="inline-block">Trusted by 1000+ businesses</Badge>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 text-balance leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 text-balance leading-tight animate-fade-in" style={{ animation: 'fadeIn 0.8s ease-out 0.2s both' }}>
             Smart Business Starts with <span className="text-primary">QUICKO</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 text-balance max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-100 mb-8 text-balance max-w-2xl mx-auto animate-fade-in" style={{ animation: 'fadeIn 0.8s ease-out 0.4s both' }}>
             Manage inventory, sales, staff, and reports in real-time from any device. Transform your business with our powerful, easy-to-use POS system.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in" style={{ animation: 'fadeIn 0.8s ease-out 0.6s both' }}>
             <Button size="lg" asChild className="gap-2">
               <Link href="/signup">
                 Start Free Trial
@@ -56,30 +60,64 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* Enhanced Floating Cards with glassmorphism */}
-          <div className="relative h-80 md:h-96">
+          {/* Floating Cards with Parallax Effect */}
+          <style>{`
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(20px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes floatParallax {
+              0%, 100% { transform: translateY(0px); }
+              50% { transform: translateY(-20px); }
+            }
+            @keyframes floatParallaxLeft {
+              0%, 100% { transform: translateY(0px) translateX(0px); }
+              50% { transform: translateY(-15px) translateX(-10px); }
+            }
+            @keyframes floatParallaxRight {
+              0%, 100% { transform: translateY(0px) translateX(0px); }
+              50% { transform: translateY(-25px) translateX(10px); }
+            }
+          `}</style>
+
+          <div className="relative h-80 md:h-96 mt-12">
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
-              <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+              <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto perspective">
                 {/* Floating card 1 - Order Confirmed */}
-                <div className="animate-bounce" style={{animationDelay: '0s'}}>
-                  <Card className="p-4 backdrop-blur-xl border-primary/30 bg-white/80 shadow-xl hover:shadow-2xl transition-shadow">
-                    <div className="text-3xl mb-2">✅</div>
+                <div 
+                  className="animate-fade-in" 
+                  style={{
+                    animation: 'floatParallaxLeft 4s ease-in-out infinite, fadeIn 0.8s ease-out 0.8s both',
+                  }}
+                >
+                  <Card className="p-4 backdrop-blur-xl border-white/40 bg-white/90 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+                    <div className="text-4xl mb-2">✅</div>
                     <p className="text-xs font-semibold text-primary">Order Confirmed</p>
                   </Card>
                 </div>
                 
                 {/* Floating card 2 - Payment Success */}
-                <div className="animate-bounce" style={{animationDelay: '0.2s'}}>
-                  <Card className="p-4 backdrop-blur-xl border-primary/30 bg-white/80 shadow-xl hover:shadow-2xl transition-shadow">
-                    <CreditCard className="w-6 h-6 text-primary mb-2 mx-auto" />
+                <div 
+                  className="animate-fade-in"
+                  style={{
+                    animation: 'floatParallax 4s ease-in-out infinite, fadeIn 0.8s ease-out 1s both',
+                  }}
+                >
+                  <Card className="p-4 backdrop-blur-xl border-white/40 bg-white/90 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+                    <CreditCard className="w-7 h-7 text-primary mb-2 mx-auto" />
                     <p className="text-xs font-semibold text-primary">Payment Done</p>
                   </Card>
                 </div>
                 
                 {/* Floating card 3 - Receipt Generated */}
-                <div className="animate-bounce" style={{animationDelay: '0.4s'}}>
-                  <Card className="p-4 backdrop-blur-xl border-primary/30 bg-white/80 shadow-xl hover:shadow-2xl transition-shadow">
-                    <div className="text-3xl mb-2">🧾</div>
+                <div 
+                  className="animate-fade-in"
+                  style={{
+                    animation: 'floatParallaxRight 4s ease-in-out infinite, fadeIn 0.8s ease-out 1.2s both',
+                  }}
+                >
+                  <Card className="p-4 backdrop-blur-xl border-white/40 bg-white/90 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+                    <div className="text-4xl mb-2">🧾</div>
                     <p className="text-xs font-semibold text-primary">Receipt Ready</p>
                   </Card>
                 </div>
