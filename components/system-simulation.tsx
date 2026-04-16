@@ -124,77 +124,56 @@ export function SystemSimulation() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
       </div>
 
-      {/* Animated Background Effects Layer */}
+      {/* Animated Background Effects Layer - Pure CSS */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Grid Overlay */}
+        {/* Subtle Noise Overlay */}
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `
-              linear-gradient(0deg, transparent 24%, rgba(59, 130, 246, 0.05) 25%, rgba(59, 130, 246, 0.05) 26%, transparent 27%, transparent 74%, rgba(59, 130, 246, 0.05) 75%, rgba(59, 130, 246, 0.05) 76%, transparent 77%, transparent),
-              linear-gradient(90deg, transparent 24%, rgba(59, 130, 246, 0.05) 25%, rgba(59, 130, 246, 0.05) 26%, transparent 27%, transparent 74%, rgba(59, 130, 246, 0.05) 75%, rgba(59, 130, 246, 0.05) 76%, transparent 77%, transparent)
-            `,
-            backgroundSize: '60px 60px',
-            animation: 'gridScan 12s linear infinite'
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23000000' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E")`,
+            backgroundSize: '400px 400px',
+            opacity: 0.08
           }}
         />
 
-        {/* Floating Particles */}
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div
-            key={`particle-${i}`}
-            className="absolute rounded-full"
-            style={{
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              backgroundColor: 'rgba(59, 130, 246, 0.4)',
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.15 + 0.05,
-              animation: `floatParticle ${Math.random() * 15 + 10}s infinite ease-in-out`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
-          />
-        ))}
-
-        {/* Gradient Orb 1 - Blue */}
+        {/* Gradient Orb 1 - Blue (Bottom Left) */}
         <div
           className="absolute rounded-full blur-3xl"
           style={{
             width: '300px',
             height: '300px',
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 70%, transparent 100%)',
-            left: '-10%',
-            top: '10%',
-            animation: 'floatOrb 15s ease-in-out infinite'
+            background: 'radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.1) 40%, transparent 70%)',
+            left: '-5%',
+            bottom: '-10%',
+            animation: 'floatOrbBlue 18s ease-in-out infinite'
           }}
         />
 
-        {/* Gradient Orb 2 - Cyan */}
+        {/* Gradient Orb 2 - Cyan (Top Right) */}
         <div
           className="absolute rounded-full blur-3xl"
           style={{
             width: '400px',
             height: '400px',
-            background: 'radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, rgba(34, 211, 238, 0.02) 70%, transparent 100%)',
-            right: '-15%',
-            bottom: '-5%',
-            animation: 'floatOrb 20s ease-in-out infinite',
+            background: 'radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.2) 0%, rgba(34, 211, 238, 0.08) 40%, transparent 70%)',
+            right: '-10%',
+            top: '-15%',
+            animation: 'floatOrbCyan 22s ease-in-out infinite',
             animationDelay: '2s'
           }}
         />
 
-        {/* Gradient Orb 3 - Purple */}
+        {/* Gradient Orb 3 - Purple (Center Top) */}
         <div
           className="absolute rounded-full blur-3xl"
           style={{
             width: '350px',
             height: '350px',
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 70%, transparent 100%)',
+            background: 'radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0.06) 40%, transparent 70%)',
             left: '50%',
-            top: '-10%',
+            top: '-5%',
             transform: 'translateX(-50%)',
-            animation: 'floatOrb 18s ease-in-out infinite',
+            animation: 'floatOrbPurple 20s ease-in-out infinite',
             animationDelay: '4s'
           }}
         />
@@ -226,20 +205,23 @@ export function SystemSimulation() {
             from { opacity: 0.6; }
             to { opacity: 1; }
           }
-          @keyframes floatParticle {
+          @keyframes floatOrbBlue {
             0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(var(--tx-1), var(--ty-1)); }
-            50% { transform: translate(var(--tx-2), var(--ty-2)); }
-            75% { transform: translate(var(--tx-3), var(--ty-3)); }
+            25% { transform: translate(40px, -50px); }
+            50% { transform: translate(-30px, -20px); }
+            75% { transform: translate(20px, 40px); }
           }
-          @keyframes floatOrb {
+          @keyframes floatOrbCyan {
             0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(30px, -40px); }
-            66% { transform: translate(-20px, 25px); }
+            25% { transform: translate(-50px, 40px); }
+            50% { transform: translate(30px, 20px); }
+            75% { transform: translate(-20px, -40px); }
           }
-          @keyframes gridScan {
-            0% { background-position: 0 0; }
-            100% { background-position: 60px 60px; }
+          @keyframes floatOrbPurple {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(35px, 45px); }
+            50% { transform: translate(-40px, 30px); }
+            75% { transform: translate(25px, -35px); }
           }
         `}</style>
 
