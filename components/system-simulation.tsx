@@ -111,17 +111,16 @@ export function SystemSimulation() {
 
   return (
     <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background */}
+      {/* Background - Sharp POS Dashboard Image Like Hero */}
       <div className="absolute inset-0 -z-20">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url(/pos-dashboard.jpg)',
-            opacity: 0.22,
-            filter: 'blur(2px)'
+            backgroundImage: 'url(/pos-dashboard.jpg)'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40" />
       </div>
 
       {/* Animated Background Effects Layer - Pure CSS */}
@@ -225,9 +224,9 @@ export function SystemSimulation() {
           }
         `}</style>
 
-        {/* Cross/Plus Layout */}
-        <div className="relative flex justify-center items-center" style={{ minHeight: '500px' }}>
-          {/* SVG for connecting lines */}
+        {/* Cross/Plus Layout - Desktop Only */}
+        <div className="hidden lg:relative lg:flex lg:justify-center lg:items-center" style={{ minHeight: '500px' }}>
+          {/* SVG for connecting lines - Desktop */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
             style={{ zIndex: 1 }}
@@ -299,7 +298,7 @@ export function SystemSimulation() {
             />
           </svg>
 
-          {/* Cards in Cross Layout */}
+          {/* Cards in Cross Layout - Desktop */}
           <div className="absolute w-full h-full flex items-center justify-center" style={{ zIndex: 5 }}>
             {/* Order Creation - Left */}
             <div className="absolute" style={{ left: '5%', top: '50%', transform: 'translateY(-50%)' }}>
@@ -421,6 +420,44 @@ export function SystemSimulation() {
               </Card>
             </div>
           </div>
+        </div>
+
+        {/* Vertical Stacked Layout - Mobile */}
+        <div className="lg:hidden flex flex-col gap-4 relative" style={{ zIndex: 5 }}>
+          {steps.map((step) => {
+            const isActive = activeStep === step.id
+            const Icon = step.icon
+
+            return (
+              <Card
+                key={step.id}
+                className={`w-full p-5 rounded-xl backdrop-blur-md transition-all duration-500 ${
+                  isActive
+                    ? 'border-primary/80 bg-white/20 shadow-2xl border-2 scale-105'
+                    : 'border-white/30 bg-white/10 opacity-65'
+                }`}
+                style={{
+                  animation: isActive ? 'glow 2s ease-in-out infinite' : 'none'
+                }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div
+                    className={`p-2 rounded-lg transition-all duration-500 ${
+                      isActive ? 'bg-primary/40 text-primary' : 'bg-white/10 text-gray-400'
+                    }`}
+                  >
+                    <Icon size={16} />
+                  </div>
+                  <h4 className={`text-sm font-semibold transition-all duration-500 ${isActive ? 'text-white' : 'text-gray-300'}`}>
+                    {step.title}
+                  </h4>
+                </div>
+                <div className={`transition-all duration-500 ${isActive ? 'text-white' : 'text-gray-300'}`}>
+                  {step.content}
+                </div>
+              </Card>
+            )
+          })}
         </div>
       </div>
     </section>
