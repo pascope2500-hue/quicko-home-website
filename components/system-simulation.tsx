@@ -111,17 +111,16 @@ export function SystemSimulation() {
 
   return (
     <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background */}
+      {/* Background - Sharp POS Dashboard Image Like Hero */}
       <div className="absolute inset-0 -z-20">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url(/pos-dashboard.jpg)',
-            opacity: 0.22,
-            filter: 'blur(2px)'
+            backgroundImage: 'url(/pos-dashboard.jpg)'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/50 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/40" />
       </div>
 
       {/* Animated Background Effects Layer - Pure CSS */}
